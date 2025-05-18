@@ -29,7 +29,7 @@ export const authViewer = async (req, res, next) => {
 export const authOwner = async (req, res, next) => {
     const token = req.cookies.token ||(req.header.authorization && req.headers["authorization"]?.split(" ")[1]); // Extract the token from the Authorization header
     if (!token) {
-        return res.status(401).json({ message: "Unauthorized" }); // If no token is provided, return 401 Unauthorized
+        return res.status(401).json({ message: "middleware check Unauthorized" }); // If no token is provided, return 401 Unauthorized
     }
     const isblacklisted = await blacklistTokenModel.findOne({ token }); // Check if the token is blacklisted
     if (isblacklisted) {

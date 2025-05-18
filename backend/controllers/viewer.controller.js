@@ -62,9 +62,10 @@ export const logoutViewer = async (req, res) => {
     const token = req.cookies.token || req.header.authorization.split(" ")[1]; // Get the token from the request cookies
     await blacklistTokenModel.create({ token }); // Blacklist the token by saving it to the database
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized" }); // If no token is provided, return 401 Unauthorized
+      return res.status(401).json({ message: "Token is not provided" }); // If no token is provided, return 401 Unauthorized
     }
-    res.clearCookie("token"); // Clear the token cookie from the response
+    
+  res.clearCookie("token"); // Clear the token cookie from the response
     res.status(200).json({ message: "Logged out successfully" }); // Return success message with 200 OK status
   } catch (error) {
     res.status(500).json({ message: error.message }); // If an error occurs, return 500 Internal Server Error
